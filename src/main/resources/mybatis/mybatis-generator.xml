@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration  
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<context id="MBG" targetRuntime="MyBatis3" defaultModelType="flat">
+
+		<!--mybaits代码生成器生成Example类替换成Criteria -->
+		<!--<plugin type="org.mybatis.mybaits.plugins.RenameExampleClassPlugin">-->
+			<!--<property name="searchString" value="[e|E]xample$" />-->
+			<!--<property name="replaceString" value="Criteria" />-->
+		<!--</plugin>-->
+		<!--mybaits插件生成toString方法 -->
+		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<!--<plugin type="PaginationPlugin" />-->
+
+
+		<!--下面的配置使得生成的model中可以使用数据库中的Comment对字段进行注释-->
+		<!--<commentGenerator type="org.mybatis.mybaits.internal.CustomCommentGenerator">-->
+		<commentGenerator>
+			<property name="javaFileEncoding" value="UTF-8" />
+			<property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+
+		<!-- 数据库连接 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/springboot"
+			userId="root"
+			password="admin">
+		</jdbcConnection>
+
+		<!--默认false
+           Java type resolver will always use java.math.BigDecimal if the database column is of type DECIMAL or NUMERIC.
+         -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- generate model -->
+		<javaModelGenerator targetPackage="com.luckyhua.springboot.model" targetProject="src\main\java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- generate mapper, 可以是 ANNOTATEDMAPPER(注解), XMLMAPPER(xml), MIXEDMAPPER(不知道) -->
+		<javaClientGenerator type="ANNOTATEDMAPPER"
+			targetPackage="com.luckyhua.springboot.dao.mapper"
+			 implementationPackage="com.luckyhua.springboot.dao.mapper.impl"
+			targetProject="src\main\java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!--对应数据库表 mysql可以加入主键自增 字段命名 忽略某字段等-->
+		<table tableName="user" domainObjectName="User">
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+
+		<table tableName="user_role" domainObjectName="UserRole">
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+
+		<table tableName="role" domainObjectName="Role">
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+		</table>
+
+	</context>
+</generatorConfiguration>  

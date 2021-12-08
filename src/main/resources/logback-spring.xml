@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    <!-- 根据不同环境（prod:生产环境，test:测试环境，dev:开发环境）来定义不同的日志输出，
+    在 logback-spring.xml 中使用 springProfile 节点来定义,
+    可以启动服务的时候指定 profile （如不指定使用默认），如指定prod 的方式为：
+    java -jar xxx.jar - -spring.profiles.active=prod -->
+    <logger name="org.springframework.web" level="INFO"/>
+    <logger name="org.springboot.sample" level="TRACE" />
+
+    <!-- 测试环境+开发环境. 多个使用逗号隔开. -->
+    <springProfile name="test,dev">
+        <logger name="org.springframework.web" level="DEBUG"/>
+        <logger name="org.springboot.sample" level="DEBUG" />
+    </springProfile>
+
+
+    <!-- 生产环境. -->
+    <springProfile name="prod">
+        <logger name="org.springframework.web" level="INFO"/>
+        <logger name="org.springboot.sample" level="INFO" />
+    </springProfile>
+
+</configuration>
